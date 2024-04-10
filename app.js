@@ -1,52 +1,100 @@
-//1. OPTIONS - предварительный запрос, который хранит поле allow, в котором указан домен с которого идет запрос, 
-//бэк принимает запрос, сверяет allow, это делается для cors политики. Так же запрос сообщает о методах с которыми можно работать.
+//1
 
-//2. Использование QUICK, который работает по верх UDP вместо TCP. QUIC вводит понятие мультиплексирования нескольких потоков в одном соединении. 
-//QUIC по своей конструкции реализует раздельное управление потоком для каждого потока, что решает проблему блокировки начала 
-//очереди (HoL) всего соединения.
+let counter = {};
 
-// TCP имеет жесткий механизм контроля перегрузки. Каждый раз, когда протокол TCP обнаруживает перегрузку, он вдвое уменьшает 
-// размер окна перегрузки. Контроль перегрузки QUIC является более гибким и позволяет более эффективно использовать 
-// доступную полосу пропускания сети, что приводит к повышению пропускной способности трафика.
+let counter = new Object();
 
-// HTTP/3 также использует новый механизм сжатия заголовков под названием QPACK, который является модификацией HPACK, 
-// используемой в HTTP/2. В QPACK заголовки HTTP могут поступать не по порядку в разных потоках QUIC
+let counter = Object.create(null);
 
-//3. AbortController - это,интерфейс, который позволяет управлять отменой http запросов со стороны фронтенда.
+function NewCounter() {
 
-let num = 1;
-let num2 = 2;
+}
 
-let str = '123';
-let str2 = '1234';
+let counter = new NewCounter();
 
-let bool = true;
-let bool2 = 2 > 1;
+class NewCounter {
 
-let null1 = null;
-let null2 = null;
+}
 
-let undefined1;
-let undefined2 = undefined;
-
-let symbol1 = Symbol('1');
-let symbol2 = Symbol('2');
-
-let bigInt1 = BigInt(1);
-let bigInt2 = 1n;
-
-//4. Потому-что переменная попадает в "мертвую зону" - это промежуток между инициализацией переменной и присвоения ей значения.
+let counter = new NewCounter();
 
 
-//5
+//2
 
-const res = "B" + "a" + (1 - "hello");
-console.log(res); //BaNaN
+let counterCopy = {...counter};
 
-const res2 = (true && 3) + "d";
-console.log(res2); //3d
+let counterCopy = Object.assign({},counter);
 
-const res3 = Boolean(true && 3) + "d";
-console.log(res3); //trued
+let counterCopy = JSON.parse(JSON.stringify(counter));
+
+let counterCopy = {};
+for (let key in counter) {
+    counterCopy[key] = counter[key];
+}
+
+let counterCopy = Object.create(Object.getPrototypeOf(counter), Object.getOwnPropertyDescriptors(counter));
+
+
+//3
+
+
+function makeCounter() {
+    
+}
+
+let makeCounter = new Function();
+
+let makeCounter = function() {
+    
+};
+
+let makeCounter = () => {
+    
+};
+
+let obj = {
+    makeCounter: function() {
+        
+    }
+};
+
+let makeCounter = obj.makeCounter;
+
+
+//4 structuredClone позволяет глубоко копировать объекты, так же позволяет скопировать инстансы различных классов.
+// Не копирует цепочку прототипов, не копирует DOM ноды, дескрипоторы, сеттеры и геттеры.
+
+
+function deepEqual(obj1, obj2) {
+    if (obj1 === obj2) {
+        return true;
+    }
+
+    if (typeof obj1 !== "object" || typeof obj2 !== "object" || obj1 === null || obj2 === null) {
+        return false;
+    }
+
+    let keys1 = Object.keys(obj1);
+    let keys2 = Object.keys(obj2);
+
+    if (keys1.length !== keys2.length) {
+        return false;
+    }
+
+    for (let key of keys1) {
+        if (!keys2.includes(key) || !deepEqual(obj1[key], obj2[key])) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+
+
+function reverseStr(str) {
+    return str.split('').reverse().join('');
+}
+
 
 
