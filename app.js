@@ -1,176 +1,156 @@
-//1
-// В JS массивы называют "неправильными" потому, что они могут совмещать в себе черты нескольких различных структур данных.
+//1 Сортировка пузырьком (Bubble Sort)
+// Сортировка вставками (Insertion Sort)
+// Сортировка выбором (Selection Sort)
+// Быстрая сортировка (Quick Sort)
+// Сортировка слиянием (Merge Sort)
 //
-// Массивы в JavaScript часто используются как упорядоченные списки, где каждый элемент имеет свой индекс. Это позволяет 
-// эффективно хранить и обрабатывать упорядоченные коллекции данных.
-//
-// Массивы в JavaScript могут использоваться как стеки и очереди с помощью методов push(), pop(), shift() и unshift().
-// Например, push() используется для добавления элемента в конец массива, что соответствует операции push в стеке.
-//
-// Массивы в JavaScript могут использоваться как хэш таблицы.
-// Поскольку массивы в JavaScript являются объектами, они могут иметь собственные свойства и методы, что делает их 
-// более похожими на обычные объекты. Например, вы можете добавить новое свойство к массиву, как к объекту.
 
+//2 Операторы:
+// Арифметические операторы: +, -, *, /, % (остаток от деления).
+// Операторы сравнения: ==, !=, ===, !==, >, <, >=, <=.
+// Логические операторы: && (логическое "и"), || (логическое "или"), ! (логическое "не").
+// Операторы присваивания: =, +=, -=, *=, /=, %=.
+// Операторы инкремента и декремента: ++, --.
+// Тернарный оператор: condition ? expr1 : expr2.
 
-//2
+// Выражения:
+// Арифметические выражения: x + y, 2 * (a + b).
+// Логические выражения: x > 5 && y < 10, !(a === b).
+// Строковые выражения: 'Hello, ' + name, \My age is ${age}``.
 
-function logger() {
-    console.log(`I output only external context: ${this.item}`);
-}
+// Циклы:
+// for: Позволяет выполнить блок кода несколько раз, указывая начальное значение, условие продолжения и шаг.
+// while: Выполняет блок кода, пока указанное условие истинно.
+// do...while: Выполняет блок кода один раз, а затем продолжает выполнять, пока указанное условие истинно.
+// for...in: Перебирает перечислимые свойства объекта.
+// for...of: Перебирает значения итерируемых объектов, таких как массивы или строки.
 
-const obj = { item: "some value" };
+//3
 
-const boundLogger = logger.bind(obj);
-logger.call(obj)
-logger.apply(obj);
-
-//3.1
-
-let arr = [1,2,3,4,5,6];
-let sum = arr.reduce((acc,curr) => acc + curr,0);
-
-let arrStr = ['a','b','c'];
-let str = arrStr.join('');
-
-const max = Math.max(...arr);
-const min = Math.min(...arr);
-
-//3.2
-class Stack {
-    constructor() {
-        this.items = [];
-    }
-
-    push(element) {
-        this.items.push(element);
-    }
-
-    pop() {
-        if (this.isEmpty()) {
-            return "Недостаток элементов";
-        }
-        return this.items.pop();
-    }
-
-    peek() {
-        return this.items[this.items.length - 1];
-    }
-
-    isEmpty() {
-        return this.items.length === 0;
-    }
-
-    printStack() {
-        let str = "";
-        for (let i = 0; i < this.items.length; i++) {
-            str += this.items[i] + " ";
-        }
-        return str;
-    }
+function Person(name) {
+    this.name = name;
 }
 
 
-//3.3
-
-class Queue {
-    constructor() {
-        this.items = [];
-    }
-
-    enqueue(element) {
-        this.items.push(element);
-    }
-
-    dequeue() {
-        if (this.isEmpty()) {
-            return "Очередь пуста";
-        }
-        return this.items.shift();
-    }
-
-    front() {
-        if (this.isEmpty()) {
-            return "Очередь пуста";
-        }
-        return this.items[0];
-    }
-
-    isEmpty() {
-        return this.items.length === 0;
-    }
-
-    size() {
-        return this.items.length;
-    }
-
-    printQueue() {
-        let str = "";
-        for (let i = 0; i < this.items.length; i++) {
-            str += this.items[i] + " ";
-        }
-        return str;
-    }
-}
-
-
-class CashierQueue {
-    constructor() {
-        this.queue = [];
-    }
-
-    
-    enqueue(customer) {
-        this.queue.push(customer);
-        console.log(`${customer} встал в очередь`);
-    }
-
-    
-    dequeue() {
-        if (this.isEmpty()) {
-            return "Очередь пуста";
-        }
-        const customer = this.queue.shift();
-        console.log(`${customer} обслужен и покидает очередь`);
-        return customer;
-    }
-
-    
-    isEmpty() {
-        return this.queue.length === 0;
-    }
-
-    
-    printQueue() {
-        console.log("Текущая очередь:", this.queue.join(", "));
-    }
-}
-
-
-const cashierQueue = new CashierQueue();
-
-cashierQueue.enqueue("Иванов");
-cashierQueue.enqueue("Петров");
-cashierQueue.enqueue("Сидоров");
-
-cashierQueue.printQueue();
-
-cashierQueue.dequeue();
-cashierQueue.printQueue();
-
-cashierQueue.dequeue();
-cashierQueue.printQueue();
-
-cashierQueue.dequeue();
-cashierQueue.printQueue();
-
-cashierQueue.dequeue(); 
-
-
-//bonus
-
-Function.prototype.bind = function(context, ...args) {
-    let fn = this;
-    return function(...innerArgs) {
-        return fn.call(context, ...args, ...innerArgs);
-    };
+Person.prototype.sayHello = function() {
+    console.log(`Hello, my name is ${this.name}`);
 };
+
+
+const person1 = new Person('John');
+person1.sayHello();
+
+
+const person2 = new Person('Alice');
+person2.sayHello(); 
+
+
+Person.prototype.logInfo = function() {
+    console.log(`Name: ${this.name}`);
+};
+
+person1.logInfo(); 
+person2.logInfo(); 
+
+
+
+// Определение класса Person
+class Person {
+    constructor(name) {
+        this.name = name;
+    }
+
+    sayHello() {
+        console.log(`Hello, my name is ${this.name}`);
+    }
+
+    static logInfo(obj) {
+        console.log(`Name: ${obj.name}`);
+    }
+}
+
+const person1 = new Person('John');
+person1.sayHello(); 
+
+const person2 = new Person('Alice');
+person2.sayHello(); 
+
+Person.logInfo(person1);
+Person.logInfo(person2); 
+
+//4 
+
+class Person {
+    constructor(name) {
+        this._name = name;;
+    }
+
+    
+}
+
+
+class PersonThree extends Person {
+    constructor(name) {
+        super(name); 
+    }
+
+    get name() {
+        return this._name;
+    }
+
+    set name(name) {
+        this._name = name;
+    }
+
+}
+
+
+//bonus 
+// O(n^2)
+let arr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+let total = 13;
+
+
+const firstSum = (arr, total) => {
+  for (let i in arr){
+  	for (let j in arr){
+    	if (j != i && arr[i] + arr[j] == 13){
+      	    return [arr[i],arr[j]];
+      }
+    }
+  }
+}
+
+console.log(firstSum(arr,total))
+
+
+// O(n log n)
+let arr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+let total = 13;
+
+
+const firstSum = (arr, total) => {
+ 	arr = arr.sort((a,b) => a - b);
+  
+  let left = 0;
+  let right = arr.length - 1;
+  
+  while (left < right){
+  	let sum = arr[left] + arr[right];
+    
+    if (sum == total){
+    	return [arr[left],arr[right]];
+    }
+    else if (sum < total){
+    	left++;
+    }
+    else if(sum > total){
+    	right--;
+    }
+ 
+  
+  }
+  
+}
+
+console.log(firstSum(arr,total))
