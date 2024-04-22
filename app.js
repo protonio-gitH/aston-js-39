@@ -21,7 +21,7 @@ foo(arr);
 //bonus
 
 function fetchUrl(url, count = 5){
-	return new Promise(async (resolve,reject) =>{
+	return new Promise((resolve,reject) =>{
   		fetch(url).then(res => resolve(res)).catch(e =>{
 	      		console.log(count);
 	      		if (count == 1){
