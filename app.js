@@ -1,156 +1,38 @@
-//1 Сортировка пузырьком (Bubble Sort)
-// Сортировка вставками (Insertion Sort)
-// Сортировка выбором (Selection Sort)
-// Быстрая сортировка (Quick Sort)
-// Сортировка слиянием (Merge Sort)
-//
+//1. abc
+//2. 1 123 2 123 3 321 4 undefined
 
-//2 Операторы:
-// Арифметические операторы: +, -, *, /, % (остаток от деления).
-// Операторы сравнения: ==, !=, ===, !==, >, <, >=, <=.
-// Логические операторы: && (логическое "и"), || (логическое "или"), ! (логическое "не").
-// Операторы присваивания: =, +=, -=, *=, /=, %=.
-// Операторы инкремента и декремента: ++, --.
-// Тернарный оператор: condition ? expr1 : expr2.
 
-// Выражения:
-// Арифметические выражения: x + y, 2 * (a + b).
-// Логические выражения: x > 5 && y < 10, !(a === b).
-// Строковые выражения: 'Hello, ' + name, \My age is ${age}``.
+//3.
 
-// Циклы:
-// for: Позволяет выполнить блок кода несколько раз, указывая начальное значение, условие продолжения и шаг.
-// while: Выполняет блок кода, пока указанное условие истинно.
-// do...while: Выполняет блок кода один раз, а затем продолжает выполнять, пока указанное условие истинно.
-// for...in: Перебирает перечислимые свойства объекта.
-// for...of: Перебирает значения итерируемых объектов, таких как массивы или строки.
+let arr = [10, 12, 15, 21];
 
-//3
-
-function Person(name) {
-    this.name = name;
+function foo(arr){
+	for (let index in arr){
+  	setTimeout(() => console.log(arr[index]), index*3000 );
+  }
 }
 
+foo(arr);
 
-Person.prototype.sayHello = function() {
-    console.log(`Hello, my name is ${this.name}`);
-};
+//4. Можно использовать ключевое слово await отдельно (вне асинхронной функции) на верхнем уровне модуля. 
+// Это означает, что модули с дочерними модулями, использующими await, будут ждать выполнения дочерних модулей, прежде 
+// чем они сами запустятся, при этом не блокируя загрузку других дочерних модулей.
 
+//bonus
 
-const person1 = new Person('John');
-person1.sayHello();
-
-
-const person2 = new Person('Alice');
-person2.sayHello(); 
-
-
-Person.prototype.logInfo = function() {
-    console.log(`Name: ${this.name}`);
-};
-
-person1.logInfo(); 
-person2.logInfo(); 
-
-
-
-// Определение класса Person
-class Person {
-    constructor(name) {
-        this.name = name;
-    }
-
-    sayHello() {
-        console.log(`Hello, my name is ${this.name}`);
-    }
-
-    static logInfo(obj) {
-        console.log(`Name: ${obj.name}`);
-    }
-}
-
-const person1 = new Person('John');
-person1.sayHello(); 
-
-const person2 = new Person('Alice');
-person2.sayHello(); 
-
-Person.logInfo(person1);
-Person.logInfo(person2); 
-
-//4 
-
-class Person {
-    constructor(name) {
-        this._name = name;;
-    }
-
-    
-}
-
-
-class PersonThree extends Person {
-    constructor(name) {
-        super(name); 
-    }
-
-    get name() {
-        return this._name;
-    }
-
-    set name(name) {
-        this._name = name;
-    }
-
-}
-
-
-//bonus 
-// O(n^2)
-let arr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-let total = 13;
-
-
-const firstSum = (arr, total) => {
-  for (let i in arr){
-  	for (let j in arr){
-    	if (j != i && arr[i] + arr[j] == 13){
-      	    return [arr[i],arr[j]];
+function fetchUrl(url, count = 5){
+	return new Promise(async (resolve,reject) =>{
+  	fetch(url).then(res => resolve(res)).catch(e =>{
+      console.log(count);
+      if (count == 1){
+        reject(e);
       }
-    }
-  }
+      else{
+        fetchUrl(url,count - 1).then(resolve).catch(reject);
+      }
+    })
+  })
 }
 
-console.log(firstSum(arr,total))
 
-
-// O(n log n)
-let arr = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-let total = 13;
-
-
-const firstSum = (arr, total) => {
- 	arr = arr.sort((a,b) => a - b);
-  
-  let left = 0;
-  let right = arr.length - 1;
-  
-  while (left < right){
-  	let sum = arr[left] + arr[right];
-    
-    if (sum == total){
-    	return [arr[left],arr[right]];
-    }
-    else if (sum < total){
-    	left++;
-    }
-    else if(sum > total){
-    	right--;
-    }
- 
-  
-  }
-  
-}
-
-console.log(firstSum(arr,total))
+fetchUrl('https://google/com&#39').then(res => console.log(res)).catch(e =>console.log(e));
