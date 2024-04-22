@@ -22,16 +22,16 @@ foo(arr);
 
 function fetchUrl(url, count = 5){
 	return new Promise(async (resolve,reject) =>{
-  	fetch(url).then(res => resolve(res)).catch(e =>{
-      console.log(count);
-      if (count == 1){
-        reject(e);
-      }
-      else{
-        fetchUrl(url,count - 1).then(resolve).catch(reject);
-      }
-    })
-  })
+  		fetch(url).then(res => resolve(res)).catch(e =>{
+	      		console.log(count);
+	      		if (count == 1){
+	        		reject(e);
+	      		}
+	      		else{
+	        		fetchUrl(url,count - 1).then(resolve).catch(reject);
+	      		}
+	    	})
+  	})
 }
 
 
